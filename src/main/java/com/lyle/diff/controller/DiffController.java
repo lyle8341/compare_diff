@@ -1,4 +1,4 @@
-package com.lyle.log.controller;
+package com.lyle.diff.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
