@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>diff</title>
+<style>
+.container {
+	width: 100%;
+	height: 400px;
+	border: 5px solid #e3e3e3;
+	margin: 50px auto;
+}
+
+.left, .right {
+	width: 48%;
+	height: 100%;
+	display: inline-block;
+}
+
+.left {
+	border-right: 2px dashed #e3e3e3;
+}
+
+.right {
+	border-left: 2px dashed #e3e3e3;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="left">
+			<div class="left-content">
+				#foreach($value in $val)
+				<p>$!value.get(0) 
+				#end</p>
+			</div>
+		</div>
+		<div class="right">
+			<div class="right-content">
+				#foreach($value in $val)
+				<p>$!value.get(1) 
+				#end</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

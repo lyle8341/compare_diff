@@ -6,25 +6,23 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.ui.Model;
-
 import com.lyle.user.User;
 
 public class CompareUtil {
 
 	/**
-	 * 比较两个对象属性值异同
+	 * 比较两个User对象属性值异同(这里明确了是User对象，因为代码写死的)
 	 * @param obj1 
 	 * @param obj2
 	 * 应用场景：比较前后两次修改的差别
 	 */
-	public static void compareObj(Object obj1,Object obj2,Model model){
+	public static List<String[]> compareObj(Object obj1,Object obj2){
 		String bcolor = "<font size='4' color='green'>";
 		String ecolor = "</font>";
+		List<String[]> val = new ArrayList<String[]>();
 		if(obj1 instanceof User && obj2 instanceof User){
 			User u1 = (User)obj1;
 			User u2 = (User)obj2;
-			List<String[]> val = new ArrayList<String[]>();
 			try {
 				Class<?> clazz = obj1.getClass();
 				Field[] fields = clazz.getDeclaredFields();
@@ -52,8 +50,8 @@ public class CompareUtil {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
-			model.addAttribute("val", val);
 		}
+		return val;
 	}
 	
 	/**
@@ -89,6 +87,7 @@ public class CompareUtil {
 		    	if(count ==0){
 				   ret1.append(bcolor);
 				   ret2.append(bcolor);
+				   count++;
 		    	}
 		    	 ret1.append(a[i]);
 		    	 ret2.append(b[i]);
@@ -96,12 +95,13 @@ public class CompareUtil {
 		    	 if(a[i+1] == b[i+1]){
 		    		 ret1.append(ecolor);
 		    		 ret2.append(ecolor);
+		    		 count = 0;
 		    	 }
 		    	 }else{
 		    		 ret1.append(ecolor);
 		    		 ret2.append(ecolor);
+		    		 count = 0;
 		    	 }
-		      count++;
 		     }
 		    } else {
 		    	//合并不同字符，一起加一个font标签
@@ -125,6 +125,7 @@ public class CompareUtil {
 		    	 if(count ==0){
 					   ret1.append(bcolor);
 					   ret2.append(bcolor);
+					   count++;
 			    	}
 			    	 ret1.append(a[i]);
 			    	 ret2.append(b[i]);
@@ -132,12 +133,13 @@ public class CompareUtil {
 			    		 if(a[i+1] == b[i+1]){
 				    		 ret1.append(ecolor);
 				    		 ret2.append(ecolor);
+				    		 count = 0;
 				    	 }
 			    	 }else{
 			    		 ret1.append(ecolor);
 			    		 ret2.append(ecolor);
+			    		 count = 0;
 			    	 }
-			    	 count++;
 		     }
 		    } else {
 		    	if(i == tmp1.length()){
@@ -153,6 +155,8 @@ public class CompareUtil {
 		  String[] ret = new String[2];
 		  ret[0] = ret1.toString();
 		  ret[1] = ret2.toString();
+//		  System.out.println(ret[0]);
+//		  System.out.println(ret[1]);
 		  return ret;
 		 }
 }
