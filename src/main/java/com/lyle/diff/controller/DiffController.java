@@ -20,7 +20,7 @@ public class DiffController {
 		u1.setName("zhangsan");
 		u1.setSalary(120.2f);
 		User u2 = new User();
-		u2.setComment("this is user2");
+		u2.setComment("this is user2 lyle test");
 		u2.setDio("英俊潇洒");
 		u2.setId(2);
 		u2.setName("zhangsan");

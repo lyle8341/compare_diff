@@ -42,7 +42,7 @@ public class CompareUtil {
 						diff[1] = getMethod.getName().substring(3) + ":" + diff[1];
 						val.add(diff);
 					}else{
-						//只显示有改动的项，没有改动的这里不显示处理
+						//绿色显示相同内容
 						String[] same = new String[2];
 						same[0] = getMethod.getName().substring(3) + ":" + bcolor + o1s + ecolor;
 						same[1] = getMethod.getName().substring(3) + ":" + bcolor + o2s + ecolor;
@@ -75,6 +75,9 @@ public class CompareUtil {
 		  }
 		  StringBuffer ret1 = new StringBuffer();
 		  StringBuffer ret2 = new StringBuffer();
+		  //计数器，目的是第一次访问的时候加头标签
+		  int count = 0;
+		  //tmp1长度大
 		  if (tmp1.length() > tmp2.length()) {
 		   for (int i = 0; i < a.length; i++) {
 		    if (i < tmp2.length()) {
@@ -82,11 +85,33 @@ public class CompareUtil {
 		      ret1.append(a[i]);
 		      ret2.append(b[i]);
 		     } else {
-		      ret1.append(bcolor).append(a[i]).append(ecolor);
-		      ret2.append(bcolor).append(b[i]).append(ecolor);
+		    	 //合并相同字符，一起加font
+		    	if(count ==0){
+				   ret1.append(bcolor);
+				   ret2.append(bcolor);
+		    	}
+		    	 ret1.append(a[i]);
+		    	 ret2.append(b[i]);
+		    	 if(i < tmp2.length()-1){
+		    	 if(a[i+1] == b[i+1]){
+		    		 ret1.append(ecolor);
+		    		 ret2.append(ecolor);
+		    	 }
+		    	 }else{
+		    		 ret1.append(ecolor);
+		    		 ret2.append(ecolor);
+		    	 }
+		      count++;
 		     }
 		    } else {
-		     ret2.append(bcolor).append(a[i]).append(ecolor);
+		    	//合并不同字符，一起加一个font标签
+		    	if(i == tmp2.length()){
+		    		ret1.append(bcolor).append(a[i]);
+		    	}else if(i == tmp1.length()-1){
+		    		ret1.append(a[i]).append(ecolor);
+		    	}else{
+		    		ret1.append(a[i]);
+		    	}
 		    }
 		   }
 		  } else if (tmp1.length() <= tmp2.length()) {
@@ -96,11 +121,32 @@ public class CompareUtil {
 		      ret1.append(a[i]);
 		      ret2.append(b[i]);
 		     } else {
-		      ret1.append(bcolor).append(a[i]).append(ecolor);
-		      ret2.append(bcolor).append(b[i]).append(ecolor);
+		    	 //合并不同字符，一起加font
+		    	 if(count ==0){
+					   ret1.append(bcolor);
+					   ret2.append(bcolor);
+			    	}
+			    	 ret1.append(a[i]);
+			    	 ret2.append(b[i]);
+			    	 if(i < tmp1.length()-1){
+			    		 if(a[i+1] == b[i+1]){
+				    		 ret1.append(ecolor);
+				    		 ret2.append(ecolor);
+				    	 }
+			    	 }else{
+			    		 ret1.append(ecolor);
+			    		 ret2.append(ecolor);
+			    	 }
+			    	 count++;
 		     }
 		    } else {
-		     ret2.append(bcolor).append(b[i]).append(ecolor);
+		    	if(i == tmp1.length()){
+		    		ret2.append(bcolor).append(b[i]);
+		    	}else if(i == tmp2.length()-1){
+		    		ret2.append(b[i]).append(ecolor);
+		    	}else{
+		    		ret2.append(b[i]);
+		    	}
 		    }
 		   }
 		  }
