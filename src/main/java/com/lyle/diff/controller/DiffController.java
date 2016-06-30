@@ -32,11 +32,12 @@ public class DiffController {
 		u2.setSalary(120.2f);
 		List<String[]>  val = CompareUtil.compareObj(u1, u2);
 		model.addAttribute("val", val);
-		System.out.println(JSON.toJSONString(u2));
+		//System.out.println(JSON.toJSONString(u2));
 		return "diff_obj";
 	}
 	
 	@RequestMapping(value="/diffs",method=RequestMethod.GET)
+	@SuppressWarnings("unchecked")
 	public String diffs(Model model){
 		String json = "{\"comment\":\"this is json1  test\",\"dio\":\"风花倜傥愁眉苦脸\",\"id\":1,\"name\":\"lisan\",\"salary\":120.5}";
 		Map<String,Object> m1 = JSON.parseObject(json, Map.class);
